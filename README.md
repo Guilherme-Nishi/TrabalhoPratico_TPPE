@@ -85,7 +85,7 @@ No caso do exemplo desse trabalho, a base de cálculo do IRPF é de R$ 6.810,41.
 | 5a.   | 27.5 %    | R$ 590,07      |
 |       | **Total** | **R$ 987,88**  |
 
-A alíquota efetiva é dada pelo quociente entre o imposto pago e o total de rendimentos tributáveis. Embora o cidadão do exemplo se encontrar na quinta faixa (27,5%), a alíquota efetiva do imposto pago é de 9,87% ($\frac{R\$ 987,88}{R\$ 10.000,00}$).
+A alíquota efetiva é dada pelo quociente entre o imposto pago e o total de rendimentos tributáveis. Embora o cidadão do exemplo se encontrar na quinta faixa (27,5%), a alíquota efetiva do imposto pago é de 9,87% ( $\frac{R\\$ 987,88}{R\\$ 10.000,00}$ ).
 
 --- 
 
