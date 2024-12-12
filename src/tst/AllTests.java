@@ -5,7 +5,9 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ TesteCadastrarDependente.class, 
+@SuiteClasses({
+				TesteCalcularAliquotaEfetiva.class,
+				TesteCadastrarDependente.class,
 				TesteRendimentos.class,
 				TesteCalculosDeducoesDependentes.class, 
 				TesteCadastroContribuicaoPrevidenciaria.class, 
