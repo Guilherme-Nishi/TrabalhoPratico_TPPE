@@ -319,21 +319,17 @@ public class IRPF {
     }
     
     /**
-     * Calcula a base de cálculo do imposto de renda com base nos rendimentos
-     * tributáveis e deduções totais do contribuinte.
-     * @return base de cálculo para o imposto de renda
-     */
-    public void calcularBaseCalculo(float rendimentosTributaveis, float totalDeducoes) {
-        baseDeCalculo = rendimentosTributaveis - totalDeducoes;
-    }
-
-    /**
      * Retorna o valor final da base de cálculo após
      * feito o cálculo entre os rendimentos tributáveis
      * e as deduções
      * @return valor da base de cálculo
      */
     public float getBaseDeCalculo(){
+        float rendimentosTributaveis = getTotalRendimentosTributaveis();
+        float totalDeducoes = getDeducaoTotal();
+        
+        baseDeCalculo = rendimentosTributaveis - totalDeducoes;
+        
         return baseDeCalculo;
     }
 

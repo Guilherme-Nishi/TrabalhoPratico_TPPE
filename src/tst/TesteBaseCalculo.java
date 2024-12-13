@@ -251,11 +251,6 @@ public class TesteBaseCalculo {
 			irpf.cadastrarDeducaoIntegral((String)o[0], (float)o[1]);
 		}
 
-		float rendTributaiveis = irpf.getTotalRendimentosTributaveis();
-		float totalDeducoes = irpf.getDeducaoTotal();
-		
-		irpf.calcularBaseCalculo(rendTributaiveis, totalDeducoes);
-
 		assertEquals(resultadoEsperado, irpf.getBaseDeCalculo(), 0.01f);
 	}
 
