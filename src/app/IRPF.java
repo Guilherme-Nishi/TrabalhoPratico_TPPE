@@ -21,9 +21,11 @@ public class IRPF {
 
     private String[] nomesDeducoes;
     private float[] valoresDeducoes;
-
+    
     private float[] impostosPorFaixa;
     private float impostoTotal;
+
+    private float baseDeCalculo;
 
     public IRPF() {
         nomeRendimento = new String[0];
@@ -41,6 +43,8 @@ public class IRPF {
 
         nomesDeducoes = new String[0];
         valoresDeducoes = new float[0];
+        
+        baseDeCalculo = 0f;
 
         impostosPorFaixa = new float[5];
         impostoTotal = 0f;
@@ -319,18 +323,25 @@ public class IRPF {
      * tributáveis e deduções totais do contribuinte.
      * @return base de cálculo para o imposto de renda
      */
-    public float calcularBaseCalculo() {
-    	float rendimentosTributaveis = getTotalRendimentosTributaveis();
-    	float totalDeducoes = getDeducaoTotal();
-    	
-        return rendimentosTributaveis - totalDeducoes;
+    public void calcularBaseCalculo(float rendimentosTributaveis, float totalDeducoes) {
+        baseDeCalculo = rendimentosTributaveis - totalDeducoes;
+    }
+
+    /**
+     * Retorna o valor final da base de cálculo após
+     * feito o cálculo entre os rendimentos tributáveis
+     * e as deduções
+     * @return valor da base de cálculo
+     */
+    public float getBaseDeCalculo(){
+        return baseDeCalculo;
     }
 
     /**
      * Calcula o valor de cada faixa do imposto de renda devido com base na tabela progressiva.
      */
     public void calcularImpostosPorFaixa() {
-        float baseCalculo = calcularBaseCalculo();
+        float baseCalculo = getBaseDeCalculo();
 
         if (baseCalculo <= 2259.20) {
             impostosPorFaixa[0] = 0;

@@ -20,6 +20,7 @@ public class TesteBaseCalculo {
 	private Object[][] dependentes;
 	private Object[] contribPrevidenciaria;
 	private Object[][] pensaoAlimenticia;
+	private Object[][] outrasDeducoes;
 	private float resultadoEsperado;
 	
 	private IRPF irpf;
@@ -27,6 +28,22 @@ public class TesteBaseCalculo {
 	@Before
 	public void setup() {
 		irpf = new IRPF();
+	}
+
+	public TesteBaseCalculo(
+			Object[][] rendimentos,
+			Object[][] dependentes,
+			Object[] contribPrevidenciaria,
+			Object[][] pensaoAlimenticia,
+			Object[][] outrasDeducoes,
+			float resultadoEsperado) 
+	{
+		this.rendimentos = rendimentos;
+		this.dependentes = dependentes;
+		this.contribPrevidenciaria = contribPrevidenciaria;
+		this.pensaoAlimenticia = pensaoAlimenticia;
+		this.outrasDeducoes = outrasDeducoes;
+		this.resultadoEsperado = resultadoEsperado;
 	}
 	
 	@Parameters
@@ -47,6 +64,9 @@ public class TesteBaseCalculo {
 				},
 				new Object[][] { // Pensão alimenticia
 					{"Ana", 1500f}
+				},
+				new Object[][] { // Outras deduções
+					
 				},
 				6810.41f  // Base de calculo esperado
 			},
@@ -70,9 +90,12 @@ public class TesteBaseCalculo {
 					{"Julia", 1500f},
 					{"Marcos", 800f},
 				},
+				new Object[][] { // Outras deduções
+					
+				},
 				4131.23f  // Base de calculo esperado
 			},
-			/* TESTE 3 - Novo dependente mas sem pensão */
+			/* TESTE 3 - Novo dependente mas sem pensão válida */
 			{
 				new Object[][] { // Rendimentos
 					{"Salario", true, 8000f},
@@ -94,7 +117,109 @@ public class TesteBaseCalculo {
 					{"Marcos", 800f},
 					{"Rose", 1000f}, // valor da pensão não entra por ser 'mãe'
 				},
+				new Object[][] { // Outras deduções
+					
+				},
 				3941.64f  // Base de calculo esperado
+			},
+			/* TESTE 4 - Sem cadastro de pensão alimenticia */
+			{
+				new Object[][] { // Rendimentos
+					{"Salario", true, 8000f},
+					{"Aluguel", true, 2000f},
+					{"Bolsa", false, 1500f},
+				}, 
+				new Object[][] { // Dependentes
+					{"Ana", "Filha"},
+					{"Julia", "Alimentanda"},
+					{"Marcos", "alimentando"},
+					{"Rose", "mãe"}, // é considerada como dependente
+				},
+				new Object[] { // Contribuição previdenciaria
+					500f, 1000f
+				},
+				new Object[][] { // Pensão alimenticia
+					
+				},
+				new Object[][] { // Outras deduções
+					
+				},
+				7741.64f  // Base de calculo esperado
+			},
+			/* TESTE 5 - Sem cadastro de dependentes */
+			{
+				new Object[][] { // Rendimentos
+					{"Salario", true, 8000f},
+					{"Aluguel", true, 2000f},
+					{"Bolsa", false, 1500f},
+				}, 
+				new Object[][] { // Dependentes
+					
+				},
+				new Object[] { // Contribuição previdenciaria
+					500f, 1000f
+				},
+				new Object[][] { // Pensão alimenticia
+					
+				},
+				new Object[][] { // Outras deduções
+					
+				},
+				8500f  // Base de calculo esperado
+			},
+			/* TESTE 6 - Sem cadastro de contribuição previdenciaria */
+			{
+				new Object[][] { // Rendimentos
+					{"Salario", true, 8000f},
+					{"Aluguel", true, 2000f},
+					{"Bolsa", false, 1500f},
+				}, 
+				new Object[][] { // Dependentes
+					{"Ana", "Filha"},
+					{"Julia", "Alimentanda"},
+					{"Marcos", "alimentando"},
+					{"Rose", "mãe"}, // é considerada como dependente
+				},
+				new Object[] { // Contribuição previdenciaria
+					
+				},
+				new Object[][] { // Pensão alimenticia
+					{"Ana", 1500f},
+					{"Julia", 1500f},
+					{"Marcos", 800f},
+					{"Rose", 1000f}, // valor da pensão não entra por ser 'mãe'
+				},
+				new Object[][] { // Outras deduções
+					
+				},
+				5441.64f  // Base de calculo esperado
+			},
+			/* TESTE 7 - Cadastro de nova dedução */
+			{
+				new Object[][] { // Rendimentos
+					{"Salario", true, 8000f},
+					{"Aluguel", true, 2000f},
+					{"Bolsa", false, 1500f},
+				}, 
+				new Object[][] { // Dependentes
+					{"Ana", "Filha"},
+					{"Julia", "Alimentanda"},
+					{"Marcos", "alimentando"},
+					{"Rose", "mãe"}, // é considerada como dependente
+				},
+				new Object[] { // Contribuição previdenciaria
+					500f, 1000f
+				},
+				new Object[][] { // Pensão alimenticia
+					{"Ana", 1500f},
+					{"Julia", 500f},
+					{"Marcos", 800f},
+				},
+				new Object[][] { // Outras deduções
+					{"Despesas médicas", 1000f},
+					{"Educação", 800f},
+				},
+				3141.64f  // Base de calculo esperado
 			},
 				
 		};
@@ -102,19 +227,7 @@ public class TesteBaseCalculo {
 		return Arrays.asList(parametros);
 	}
 	
-	public TesteBaseCalculo(
-			Object[][] rendimentos,
-			Object[][] dependentes,
-			Object[] contribPrevidenciaria,
-			Object[][] pensaoAlimenticia,
-			float resultadoEsperado) 
-	{
-		this.rendimentos = rendimentos;
-		this.dependentes = dependentes;
-		this.contribPrevidenciaria = contribPrevidenciaria;
-		this.pensaoAlimenticia = pensaoAlimenticia;
-		this.resultadoEsperado = resultadoEsperado;
-	}
+	
 
 	@Test
 	public void testeBaseCalculo() {
@@ -133,8 +246,17 @@ public class TesteBaseCalculo {
 		for(Object[] p : pensaoAlimenticia) {
 			irpf.cadastrarPensaoAlimenticia((String)p[0], (float)p[1]);
 		}
+
+		for(Object[] o : outrasDeducoes) {
+			irpf.cadastrarDeducaoIntegral((String)o[0], (float)o[1]);
+		}
+
+		float rendTributaiveis = irpf.getTotalRendimentosTributaveis();
+		float totalDeducoes = irpf.getDeducaoTotal();
 		
-		assertEquals(resultadoEsperado, irpf.calcularBaseCalculo(), 0.001f);
+		irpf.calcularBaseCalculo(rendTributaiveis, totalDeducoes);
+
+		assertEquals(resultadoEsperado, irpf.getBaseDeCalculo(), 0.01f);
 	}
 
 }
