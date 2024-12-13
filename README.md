@@ -79,7 +79,7 @@ No caso do exemplo desse trabalho, a base de cálculo do IRPF é de R$ 6.810,41.
 | Faixa | Alíquota  | Imposto devido |
 |:------|:---------:|---------------:|
 | 1a.   |  0.0 %    | R$   0,00      |
-| 2a.   |  7.5 %    | R$  53,59      |
+| 2a.   |  7.5 %    | R$  42,55      |
 | 3a.   | 15.0 %    | R$ 138,66      |
 | 4a.   | 22.5 %    | R$ 205,56      |
 | 5a.   | 27.5 %    | R$ 590,07      |
