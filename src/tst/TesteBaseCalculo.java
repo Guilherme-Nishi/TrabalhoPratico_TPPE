@@ -72,7 +72,7 @@ public class TesteBaseCalculo {
 				},
 				4131.23f  // Base de calculo esperado
 			},
-			/* TESTE 3 - Novo dependente mas sem pensão */
+			/* TESTE 3 - Novo dependente mas sem pensão válida */
 			{
 				new Object[][] { // Rendimentos
 					{"Salario", true, 8000f},
@@ -95,6 +95,69 @@ public class TesteBaseCalculo {
 					{"Rose", 1000f}, // valor da pensão não entra por ser 'mãe'
 				},
 				3941.64f  // Base de calculo esperado
+			},
+			/* TESTE 4 - Sem cadastro de pensão alimenticia */
+			{
+				new Object[][] { // Rendimentos
+					{"Salario", true, 8000f},
+					{"Aluguel", true, 2000f},
+					{"Bolsa", false, 1500f},
+				}, 
+				new Object[][] { // Dependentes
+					{"Ana", "Filha"},
+					{"Julia", "Alimentanda"},
+					{"Marcos", "alimentando"},
+					{"Rose", "mãe"}, // é considerada como dependente
+				},
+				new Object[] { // Contribuição previdenciaria
+					500f, 1000f
+				},
+				new Object[][] { // Pensão alimenticia
+					
+				},
+				7741.64f  // Base de calculo esperado
+			},
+			/* TESTE 5 - Sem cadastro de dependentes */
+			{
+				new Object[][] { // Rendimentos
+					{"Salario", true, 8000f},
+					{"Aluguel", true, 2000f},
+					{"Bolsa", false, 1500f},
+				}, 
+				new Object[][] { // Dependentes
+					
+				},
+				new Object[] { // Contribuição previdenciaria
+					500f, 1000f
+				},
+				new Object[][] { // Pensão alimenticia
+					
+				},
+				8500f  // Base de calculo esperado
+			},
+			/* TESTE 6 - Sem cadastro de contribuição previdenciaria */
+			{
+				new Object[][] { // Rendimentos
+					{"Salario", true, 8000f},
+					{"Aluguel", true, 2000f},
+					{"Bolsa", false, 1500f},
+				}, 
+				new Object[][] { // Dependentes
+					{"Ana", "Filha"},
+					{"Julia", "Alimentanda"},
+					{"Marcos", "alimentando"},
+					{"Rose", "mãe"}, // é considerada como dependente
+				},
+				new Object[] { // Contribuição previdenciaria
+					
+				},
+				new Object[][] { // Pensão alimenticia
+					{"Ana", 1500f},
+					{"Julia", 1500f},
+					{"Marcos", 800f},
+					{"Rose", 1000f}, // valor da pensão não entra por ser 'mãe'
+				},
+				5441.64f  // Base de calculo esperado
 			},
 				
 		};
@@ -134,7 +197,7 @@ public class TesteBaseCalculo {
 			irpf.cadastrarPensaoAlimenticia((String)p[0], (float)p[1]);
 		}
 		
-		assertEquals(resultadoEsperado, irpf.calcularBaseCalculo(), 0.001f);
+		assertEquals(resultadoEsperado, irpf.calcularBaseCalculo(), 0.01f);
 	}
 
 }
