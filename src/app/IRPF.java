@@ -287,14 +287,37 @@ public class IRPF {
         }
         return soma;
     }
+    
+    
+    
+    // NOVAS FUNCIONALIDADES PARA O TRABALHO
 
+    /**
+     * Calcula o valor total de deduções aplicáveis ao contribuinte, incluindo
+     * dependentes, contribuições previdenciárias, pensões alimentícias e outras
+     * deduções.
+     * @return valor total das deduções
+     */
+    public float getDeducaoTotal() {
+        float total = 0;
+        total += numDependentes * 189.59f;
+        total += totalContribuicaoPrevidenciaria;
+        total += totalPensaoAlimenticia;
+        total += getTotalOutrasDeducoes();
+        return total;
+
+    }
+    
     /**
      * Calcula a base de cálculo do imposto de renda com base nos rendimentos
      * tributáveis e deduções totais do contribuinte.
      * @return base de cálculo para o imposto de renda
      */
     public float calcularBaseCalculo() {
-        return getTotalRendimentosTributaveis() - getDeducaoTotal();
+    	float rendimentosTributaveis = getTotalRendimentosTributaveis();
+    	float totalDeducoes = getDeducaoTotal();
+    	
+        return rendimentosTributaveis - totalDeducoes;
     }
 
     /**
@@ -334,19 +357,4 @@ public class IRPF {
         return (impostoDevido / rendimentosTributaveis) * 100;
     }
 
-    /**
-     * Calcula o valor total de deduções aplicáveis ao contribuinte, incluindo
-     * dependentes, contribuições previdenciárias, pensões alimentícias e outras
-     * deduções.
-     * @return valor total das deduções
-     */
-    public float getDeducaoTotal() {
-        float total = 0;
-        total += numDependentes * 189.59f;
-        total += totalContribuicaoPrevidenciaria;
-        total += totalPensaoAlimenticia;
-        total += getTotalOutrasDeducoes();
-        return total;
-
-    }
 }
