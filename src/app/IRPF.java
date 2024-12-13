@@ -22,6 +22,9 @@ public class IRPF {
     private String[] nomesDeducoes;
     private float[] valoresDeducoes;
     
+    private float[] impostosPorFaixa;
+    private float impostoTotal;
+
     private float baseDeCalculo;
 
     public IRPF() {
@@ -42,6 +45,9 @@ public class IRPF {
         valoresDeducoes = new float[0];
         
         baseDeCalculo = 0f;
+
+        impostosPorFaixa = new float[5];
+        impostoTotal = 0f;
     }
 
     /**
@@ -332,27 +338,48 @@ public class IRPF {
     }
 
     /**
-     * Calcula o valor do imposto de renda devido com base na tabela progressiva.
-     * @return valor do imposto de renda devido
+     * Calcula o valor de cada faixa do imposto de renda devido com base na tabela progressiva.
      */
-    public float calcularImpostoDevido() {
+    public void calcularImpostosPorFaixa() {
         float baseCalculo = getBaseDeCalculo();
-        float impostoDevido = 0;
 
         if (baseCalculo <= 2259.20) {
-            impostoDevido = 0;
-        } else if (baseCalculo <= 2826.65) {
-            impostoDevido = (baseCalculo - 2259.20f) * 0.075f;
-        } else if (baseCalculo <= 3751.05) {
-            impostoDevido = (2826.65f - 2259.20f) * 0.075f + (baseCalculo - 2826.65f) * 0.15f;
-        } else if (baseCalculo <= 4664.68) {
-            impostoDevido = (2826.65f - 2259.20f) * 0.075f + (3751.05f - 2826.65f) * 0.15f + (baseCalculo - 3751.05f) * 0.225f;
-        } else {
-            impostoDevido = (2826.65f - 2259.20f) * 0.075f + (3751.05f - 2826.65f) * 0.15f + (4664.68f - 3751.05f) * 0.225f + (baseCalculo - 4664.68f) * 0.275f;
+            impostosPorFaixa[0] = 0;
         }
-
-        return impostoDevido;
+        if (baseCalculo >= 2259.21) {
+            impostosPorFaixa[1] = (Math.min(baseCalculo, 2826.65f) - 2259.20f) * 0.075f;
+        }
+        if (baseCalculo >= 2826.66) {
+            impostosPorFaixa[2] = (Math.min(baseCalculo, 3751.05f) - 2826.66f) * 0.15f;
+        }
+        if (baseCalculo >= 3751.06) {
+            impostosPorFaixa[3] = (Math.min(baseCalculo, 4664.68f) - 3751.06f) * 0.225f;
+        }
+        if  (baseCalculo >= 4664.68) {
+            impostosPorFaixa[4] = (baseCalculo - 4664.68f) * 0.275f;
+        }
     }
+
+    /**
+     * Retorna os impostos de cada faixa da base de cálculo.
+     * @return array de impostos
+     */
+    public float[] getImpostosPorFaixa() { return impostosPorFaixa; }
+
+    /**
+     * Calcula o valor total do imposto de renda somando todos os valores por faixa.
+     */
+    public void calculaImpostoTotal() {
+        for (float f : impostosPorFaixa) {
+            impostoTotal += f;
+        }
+    }
+
+    /**
+     * Retorna os impostos por faixas somados.
+     * @return valor do imposto total.
+     */
+    public float getImpostoTotal() { return impostoTotal; }
 
     /**
      * Calcula a alíquota efetiva do imposto de renda com base nos rendimentos
