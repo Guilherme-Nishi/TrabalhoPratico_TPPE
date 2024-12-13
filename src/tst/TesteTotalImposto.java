@@ -30,7 +30,7 @@ public class TesteTotalImposto {
 		irpf = new IRPF();
 	}
 
-	public TesteBaseCalculo(
+	public TesteTotalImposto(
 			Object[][] rendimentos,
 			Object[][] dependentes,
 			Object[] contribPrevidenciaria,
@@ -221,14 +221,11 @@ public class TesteTotalImposto {
 				},
 				3141.64f  // Base de calculo esperado
 			},
-				
 		};
 		
 		return Arrays.asList(parametros);
 	}
 	
-	
-
 	@Test
 	public void testeTotalImposto() {
 		for(Object[] r : rendimentos) {
@@ -251,12 +248,8 @@ public class TesteTotalImposto {
 			irpf.cadastrarDeducaoIntegral((String)o[0], (float)o[1]);
 		}
 
-		float rendTributaiveis = irpf.getTotalRendimentosTributaveis();
-		float totalDeducoes = irpf.getDeducaoTotal();
-		
-		irpf.calcularBaseCalculo(rendTributaiveis, totalDeducoes);
+		irpf.calcularImpostoTotal();
 
-		assertEquals(resultadoEsperado, irpf.getBaseDeCalculo(), 0.01f);
+		assertEquals(resultadoEsperado, irpf.getImpostoTotal(), 0.01f);
 	}
-
 }
