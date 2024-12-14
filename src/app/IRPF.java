@@ -345,7 +345,7 @@ public class IRPF {
     public void calcularImpostosPorFaixa() {
         float baseCalculo = getBaseDeCalculo();
 
-        if (baseCalculo <= 2259.20) {
+        if (baseCalculo <= 2259.20 ) {
             impostosPorFaixa[0] = 0;
         }
         if (baseCalculo >= 2259.21) {

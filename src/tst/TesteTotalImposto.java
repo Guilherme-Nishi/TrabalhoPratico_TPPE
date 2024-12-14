@@ -15,6 +15,7 @@ import app.IRPF;
 
 @RunWith(Parameterized.class)
 public class TesteTotalImposto {
+
 	// Parâmetros de entrada
 	private float rendimentosTributaveis;
 	private float deducoes;
@@ -31,6 +32,7 @@ public class TesteTotalImposto {
 	@Parameterized.Parameters
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][] {
+				// Parâmetros para os testes com os cálculos corretos
 				{10000.00f, 3189.59f, 976.84f}, // Caso fornecido
 				{15000.00f, 3189.59f, 2351.86f}, // Rendimentos mais altos
 				{8000.00f, 3189.59f, 426.85f}, // Rendimentos mais baixos
@@ -41,19 +43,27 @@ public class TesteTotalImposto {
 		});
 	}
 
-
 	// Teste que valida o imposto calculado
 	@Test
 	public void testCalculoImposto() {
 
 		IRPF irpf = new IRPF();
 
-		irpf.calcularBaseCalculo(rendimentosTributaveis, deducoes);
+		// Simula a criação dos rendimentos tributáveis
+		irpf.criarRendimento("Salário", IRPF.TRIBUTAVEL, rendimentosTributaveis);
+
+		// Adiciona deduções
+		irpf.cadastrarContribuicaoPrevidenciaria(deducoes);
+
+		// Realiza os cálculos
+		irpf.calcularBaseCalculo();
 		irpf.calcularImpostosPorFaixa();
 		irpf.calcularImpostoTotal();
 
+		// Obtém o valor do imposto calculado
 		float totalImposto = irpf.getImpostoTotal();
 
+		// Valida o cálculo do imposto, permitindo um erro de 0.1 (precisão)
 		assertEquals(impostoEsperado, totalImposto, 0.1);
 	}
 }
