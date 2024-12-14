@@ -371,7 +371,7 @@ public class IRPF {
     /**
      * Calcula o valor total do imposto de renda somando todos os valores por faixa.
      */
-    public void calculaImpostoTotal() {
+    public void calcularImpostoTotal() {
         for (float f : impostosPorFaixa) {
             impostoTotal += f;
         }

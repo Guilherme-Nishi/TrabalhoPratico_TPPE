@@ -6,6 +6,7 @@
 |:------| -----------|
 |Guilherme Nishimura da Silva |200030264 |
 | Matheus Costa Gomes | 190093331 |
+| Pedro Henrique Nogueira Bragança | 190094478 |
 
 ## Descrição do trabalho:
 

@@ -14,7 +14,8 @@ import org.junit.runners.Suite.SuiteClasses;
 				TesteCadastroPensaoAlimenticia.class, 
 				TesteCadastroOutrasDeducoes.class,
 				TesteBaseCalculo.class,
-				TesteImpostoPorFaixa.class})
+				TesteImpostoPorFaixa.class,
+				TesteTotalImposto.class})
 
 public class AllTests {
 
