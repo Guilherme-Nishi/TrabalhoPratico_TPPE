@@ -48,10 +48,10 @@ public class TesteCalcularAliquotaEfetiva {
 
     @Test
     public void testCalcularAliquotaEfetiva() {
-
-
-        irpf.criarRendimento("Rendimento", IRPF.TRIBUTAVEL, rendimentosTributaveis);
-        float aliquotaEfetiva = irpf.calcularAliquotaEfetiva(rendimentosTributaveis, impostoDevido);
+        // Calcula a alíquota efetiva diretamente
+        irpf.calcularAliquotaEfetiva(rendimentosTributaveis, impostoDevido);
+        float aliquotaEfetiva = irpf.getAliquotaEfetiva();
         assertEquals(aliquotaEsperada, aliquotaEfetiva, 0.0001);
     }
+
 }
