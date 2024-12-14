@@ -6,7 +6,7 @@
 |:------| -----------|
 |Guilherme Nishimura da Silva |200030264 |
 | Matheus Costa Gomes | 190093331 |
-| Pedro Henrique Nogueira Bragança | 190094478 |
+| Pedro Henrique Nogueira Bragança | 190094478 | Karla Chaiane da Silva Feliciano | 200021541 
 
 ## Descrição do trabalho:
 
