@@ -1,6 +1,6 @@
 # TrabalhoPratico_TPPE
 
-## Integrantes - Grupo 16
+## Integrantes - Grupo 17
 
 | Nome | Matrícula |
 |:------| -----------|
