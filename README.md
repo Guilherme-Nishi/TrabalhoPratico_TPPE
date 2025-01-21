@@ -188,13 +188,13 @@ Com base nos artefatos entregues pelo grupo na primeira parte do trabalho, os co
 |           | Extrair Classe                      | IRPF                                  |
 |           | Substituir método por objeto-método | IRPF.calcularAliquotaEfetiva()        |
 |-----------|-------------------------------------|---------------------------------------|
-| **Grupo 16**  | Extrair Método                      | **IRPF.cadastrarDeducaoIntegral()**       |
-|               | Extrair Classe                      | **IRPF**                                  |
-|               | Substituir método por objeto-método | **IRPF.cadastrarDependente()**            |
+| Grupo 16  | Extrair Método                      | IRPF.cadastrarDeducaoIntegral()      |
+|               | Extrair Classe                      | IRPF                                 |
+|               | Substituir método por objeto-método | IRPF.cadastrarDependente()            |
 |-----------|-------------------------------------|---------------------------------------|
-| Grupo 17  | Extrair Método                      | IRPF.cadastrarDependente()            |
-|           | Extrair Classe                      | IRPF                                  |
-|           | Substituir método por objeto-método | IRPF.calcularImpostosPorFaixa()       |
+| **Grupo 17**  | Extrair Método                      | **IRPF.cadastrarDependente()**             |
+|           | Extrair Classe                      | **IRPF**                                   |
+|           | Substituir método por objeto-método | **IRPF.calcularImpostosPorFaixa()**       |
 |-----------|-------------------------------------|---------------------------------------|
 | Grupo 18  | Extrair Método                      | IRPF.getPorcentagemFaixa()            |
 |           | Extrair Classe                      | IRPF                                  |
