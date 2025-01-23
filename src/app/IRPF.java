@@ -121,6 +121,26 @@ public class IRPF {
     }
 
     /**
+     * Método que retorna o numero de dependentes do contribuinte
+     *
+     * @return numero de dependentes
+     */
+    public int getNumDependentes() {
+        return numDependentes;
+    }
+
+    private String[] novaDependencia(String nomeOuParentesco, String[] listaDeDependencia){
+        int totalDependentes = getNumDependentes();
+        String[] temp = new String[totalDependentes + 1];
+        for (int i = 0; i < totalDependentes; i++) {
+            temp[i] = listaDeDependencia[i];
+        }
+        temp[totalDependentes] = nomeOuParentesco;
+
+        return temp;
+    }
+
+    /**
      * Método para realizar o cadastro de um dependente, informando seu grau
      * de parentesco
      *
@@ -128,31 +148,10 @@ public class IRPF {
      * @param parentesco Grau de parentesco
      */
     public void cadastrarDependente(String nome, String parentesco) {
-        // adicionar dependente
-        String[] temp = new String[nomesDependentes.length + 1];
-        for (int i = 0; i < nomesDependentes.length; i++) {
-            temp[i] = nomesDependentes[i];
-        }
-        temp[nomesDependentes.length] = nome;
-        nomesDependentes = temp;
-
-        String[] temp2 = new String[parentescosDependentes.length + 1];
-        for (int i = 0; i < parentescosDependentes.length; i++) {
-            temp2[i] = parentescosDependentes[i];
-        }
-        temp2[parentescosDependentes.length] = parentesco;
-        parentescosDependentes = temp2;
+    	nomesDependentes = novaDependencia(nome, nomesDependentes);
+    	parentescosDependentes = novaDependencia(parentesco, parentescosDependentes);
 
         numDependentes++;
-    }
-
-    /**
-     * Método que retorna o numero de dependentes do contribuinte
-     *
-     * @return numero de dependentes
-     */
-    public int getNumDependentes() {
-        return numDependentes;
     }
 
     /**
@@ -221,7 +220,7 @@ public class IRPF {
      * @return grau de parentesco, nulo caso nao exista o dependente
      */
     public String getParentesco(String dependente) {
-        for (int i = 0; i < nomesDependentes.length; i++) {
+        for (int i = 0; i < getNumDependentes(); i++) {
             if (nomesDependentes[i].equalsIgnoreCase(dependente))
                 return parentescosDependentes[i];
         }
