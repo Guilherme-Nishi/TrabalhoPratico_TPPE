@@ -363,23 +363,8 @@ public class IRPF {
      * Calcula o valor de cada faixa do imposto de renda devido com base na tabela progressiva.
      */
     public void calcularImpostosPorFaixa() {
-        float baseCalculo = getBaseDeCalculo();
-
-        if (baseCalculo <= 2259.20) {
-            impostosPorFaixa[0] = 0;
-        }
-        if (baseCalculo >= 2259.21) {
-            impostosPorFaixa[1] = (Math.min(baseCalculo, 2826.65f) - 2259.20f) * 0.075f;
-        }
-        if (baseCalculo >= 2826.66) {
-            impostosPorFaixa[2] = (Math.min(baseCalculo, 3751.05f) - 2826.66f) * 0.15f;
-        }
-        if (baseCalculo >= 3751.06) {
-            impostosPorFaixa[3] = (Math.min(baseCalculo, 4664.68f) - 3751.06f) * 0.225f;
-        }
-        if (baseCalculo >= 4664.68) {
-            impostosPorFaixa[4] = (baseCalculo - 4664.68f) * 0.275f;
-        }
+        CalculadoraImpostoPorFaixa calculadoraImposto = new CalculadoraImpostoPorFaixa((getBaseDeCalculo()));
+        this.impostosPorFaixa = calculadoraImposto.calcularImpostosPorFaixa();
     }
 
     /**
