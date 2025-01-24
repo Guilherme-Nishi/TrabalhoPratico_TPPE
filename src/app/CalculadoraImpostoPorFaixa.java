@@ -10,9 +10,8 @@ public class CalculadoraImpostoPorFaixa {
     }
 
     public float[] calcularImpostosPorFaixa() {
-        if (baseCalculo <= 2259.20) {
-            impostosPorFaixa[0] = 0;
-        }
+        impostosPorFaixa[0] = 0;
+
         if (baseCalculo >= 2259.21) {
             impostosPorFaixa[1] = (Math.min(baseCalculo, 2826.65f) - 2259.20f) * 0.075f;
         }
