@@ -324,6 +324,10 @@ O trabalho deverá ser entregue na forma de um relatório em PDF, elaborado pelo
 grupo. O trabalho será enviado ao repositório já utilizado pelos TPs 1 e 2. As
 referências listadas abaixo devem ser consultadas em suas respostas. 
 
+A nossa entrega se encontra em : [TP3](https://github.com/Guilherme-Nishi/TrabalhoPratico_TPPE/blob/main/TP3_GRUPO17.pdf)
+
+
+
 A data-limite de entrega é dia 14/02/2025, 23:59hs. 
 
 
